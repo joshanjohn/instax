@@ -13,7 +13,12 @@ class MyUser extends Equatable {
     this.picture,
   });
 
-  
+  static const empty = MyUser(
+    id: '',
+    email: '',
+    name: '',
+    picture: '',
+  );
 
   @override
   // TODO: implement props
