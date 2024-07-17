@@ -13,6 +13,33 @@ class MyUserEntities extends Equatable {
     this.picture,
   });
 
+  Map<String, Object?> toDocument() {
+    return {
+      'id': id,
+      'email': email,
+      'name': name,
+      'picture': picture,
+    };
+  }
+
+  static MyUserEntities fromDocument(Map<String, Object?> doc) {
+    return MyUserEntities(
+      id: doc['id'] as String,
+      email: doc['email'] as String,
+      name: doc['name'] as String,
+      picture: doc['picture'] as String?,
+    );
+  }
+
+  String toString() {
+    return ''' UserEntity{
+      id: $id, 
+      email: $email,
+      name: $name,
+      picture: $picture
+      }''';
+  }
+
   @override
   // TODO: implement props
   List<Object?> get props => [id, email, name, picture];
