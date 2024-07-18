@@ -24,10 +24,10 @@ class MyUser extends Equatable {
 
   // Modify MyUser parameters
   MyUser copyWith(
-    String? id,
+    {String? id,
     String? email,
     String? name,
-    String? picture,
+    String? picture,}
   ) {
     return MyUser(
       id: id ?? this.id,

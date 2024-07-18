@@ -1,6 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:user_repository/src/models/models.dart';
 import 'package:user_repository/src/user_repo.dart';
 
 class FirebaseUserRepository implements UserRepository {
+  FirebaseUserRepository({required FirebaseAuth firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+
+  final FirebaseAuth _firebaseAuth;
+
   // sign in
   @override
   Future<void> signIn(String email, String password) {
@@ -17,9 +24,19 @@ class FirebaseUserRepository implements UserRepository {
 
   // sign up
   @override
-  Future<void> signUp(String email, String password) {
-    // TODO: implement signUp
-    throw UnimplementedError();
+  Future<MyUser> signUp(MyUser myUser, String password) async {
+    try {
+      UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: myUser.email,
+        password: password,
+      );
+
+      myUser = myUser.copyWith(id: user.user!.uid);
+      return myUser;
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
   }
 
   // reset password
