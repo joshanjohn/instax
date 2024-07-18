@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:user_repository/src/models/models.dart';
 import 'package:user_repository/src/user_repo.dart';
 
 class FirebaseUserRepository implements UserRepository {
@@ -23,8 +24,8 @@ class FirebaseUserRepository implements UserRepository {
 
   // sign up
   @override
-  Future<void> signUp(String email, String password) {
-    // TODO: implement signUp
+  Future<MyUser> signUp(String email, String password) {
+    // TODO: implement logOut
     throw UnimplementedError();
   }
 
