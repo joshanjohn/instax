@@ -24,9 +24,19 @@ class FirebaseUserRepository implements UserRepository {
 
   // sign up
   @override
-  Future<MyUser> signUp(String email, String password) {
-    // TODO: implement logOut
-    throw UnimplementedError();
+  Future<MyUser> signUp(MyUser myUser, String password) async {
+    try {
+      UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: myUser.email,
+        password: password,
+      );
+
+      myUser = myUser.copyWith(id: user.user!.uid);
+      return myUser;
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
   }
 
   // reset password
