@@ -1,6 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:user_repository/src/user_repo.dart';
 
 class FirebaseUserRepository implements UserRepository {
+  FirebaseUserRepository({required FirebaseAuth firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+
+  final FirebaseAuth _firebaseAuth;
+
   // sign in
   @override
   Future<void> signIn(String email, String password) {
