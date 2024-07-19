@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:user_repository/src/entities/entities.dart';
 import 'package:user_repository/src/models/models.dart';
 import 'package:user_repository/src/user_repo.dart';
 
@@ -7,19 +9,29 @@ class FirebaseUserRepository implements UserRepository {
       : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   final FirebaseAuth _firebaseAuth;
+  final _userCollection = FirebaseFirestore.instance.collection('user');
 
   // sign in
   @override
-  Future<void> signIn(String email, String password) {
-    // TODO: implement signIn
-    throw UnimplementedError();
+  Future<void> signIn(String email, String password) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
   }
 
-  //sign out
+  //log out
   @override
-  Future<void> logOut() {
-    // TODO: implement logOut
-    throw UnimplementedError();
+  Future<void> logOut() async {
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
   }
 
   // sign up
@@ -41,8 +53,35 @@ class FirebaseUserRepository implements UserRepository {
 
   // reset password
   @override
-  Future<void> resetPassword(String email) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<void> resetPassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Future<MyUser> getMyUser(String myUserId) {
+    try {
+      return _userCollection.doc(myUserId).get().then(
+            (value) => MyUser.fromEntity(
+              MyUserEntities.fromDocument(value.data()!),
+            ),
+          );
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> setUserData(MyUser user) async {
+    try {
+      await _userCollection.doc(user.id).set(user.toEntity().toDocument());
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
   }
 }
