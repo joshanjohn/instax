@@ -20,11 +20,15 @@ class FirebaseUserRepository implements UserRepository {
     }
   }
 
-  //sign out
+  //log out
   @override
-  Future<void> logOut() {
-    // TODO: implement logOut
-    throw UnimplementedError();
+  Future<void> logOut() async {
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
   }
 
   // sign up
