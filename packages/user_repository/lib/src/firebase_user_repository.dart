@@ -10,9 +10,14 @@ class FirebaseUserRepository implements UserRepository {
 
   // sign in
   @override
-  Future<void> signIn(String email, String password) {
-    // TODO: implement signIn
-    throw UnimplementedError();
+  Future<void> signIn(String email, String password) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
   }
 
   //sign out
