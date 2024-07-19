@@ -50,8 +50,11 @@ class FirebaseUserRepository implements UserRepository {
 
   // reset password
   @override
-  Future<void> resetPassword(String email) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<void> resetPassword(String email) async{
+    try {
+        await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }
