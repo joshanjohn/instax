@@ -4,7 +4,7 @@ enum MyUserStatus { success, loading, failure }
 
 class MyUserState extends Equatable {
   final MyUserStatus status;
-  final User? user;
+  final MyUser? user;
 
   const MyUserState._({
     this.status = MyUserStatus.loading,
