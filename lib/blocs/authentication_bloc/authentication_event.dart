@@ -8,3 +8,14 @@ abstract class AuthenticationEvent extends Equatable{
   List<Object> get props => [];
   
 }
+
+
+class AuthenticationUserChanged extends AuthenticationEvent{
+  const AuthenticationUserChanged(this.user);
+
+  final User? user;
+}
+
+
+class AuthenticationLogoutRequest extends AuthenticationEvent{
+}
