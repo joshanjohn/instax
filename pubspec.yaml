@@ -21,6 +21,11 @@ dependencies:
   # bloc 
   flutter_bloc: ^8.1.6
 
+  #custom repository
+  user_repository:
+    path: packages/user_repository
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
