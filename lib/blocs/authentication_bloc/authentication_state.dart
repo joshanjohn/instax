@@ -17,6 +17,10 @@ class AuthenticationState extends Equatable {
 
   /// it takes the [MyUser] peoperty representing the current  [authenticated] user.
   const AuthenticationState.authenticated(User user) : this._(status: AuthenticationStatus.authenticated, user:  user);
+  
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
 
 
 }
